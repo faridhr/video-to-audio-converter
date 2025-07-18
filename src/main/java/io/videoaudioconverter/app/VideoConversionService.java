@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -98,7 +100,8 @@ public class VideoConversionService {
         }
 
         // 5. Merge audio files
-        String outputFileName = UUID.randomUUID() + ".mp3";
+        String suffix = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String outputFileName = baseFileName + "_" + suffix + ".mp3";
         Path outputPath = Path.of(outputDir, outputFileName);
 
         ProcessBuilder mergeBuilder = new ProcessBuilder(
